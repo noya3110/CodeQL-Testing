@@ -17,7 +17,7 @@ require("dotenv").config();
 
 const PORT = process.env.PORT || 8080;
 
-//for sessions
+//setting up a collection in the database if not already made to store sessions
 const store = new MongoDBStore({
   uri: process.env.KEY,
   collection: "Sessions",
@@ -33,8 +33,8 @@ app.set("views", "views");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
-//this middleware function will find the cookies attached with the req from our
-//database and then attach the data associated with the cookies to the req.session
+//this middleware function will initialize the express session
+// => now we have req.session
 
 app.use(
   session({

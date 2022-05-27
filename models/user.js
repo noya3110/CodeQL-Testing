@@ -3,15 +3,16 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-  
   email: {
     type: String,
     required: true,
   },
-  password:{
-    type:String,
-    required:true,
+  password: {
+    type: String,
+    required: true,
   },
+  resetToken:String,
+  resetTokenExpiration:Date,
   cart: {
     items: [
       {
@@ -49,15 +50,13 @@ UserSchema.methods.deleteCartItem = function (prodID) {
   this.cart.items = this.cart.items.filter(
     (prod) => prod.productID.toString() != prodID.toString()
   );
-  
+
   return this.save();
 };
 
-
-UserSchema.methods.ClearCart=function(){
-  this.cart.items=[];
+UserSchema.methods.ClearCart = function () {
+  this.cart.items = [];
   return this.save();
-}
+};
 
 module.exports = mongoose.model("User", UserSchema);
-
